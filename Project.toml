@@ -1,0 +1,13 @@
+name = "PosteriorDB"
+uuid = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
+authors = ["Seth Axen <seth@sethaxen.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
