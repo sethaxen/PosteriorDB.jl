@@ -10,6 +10,8 @@ struct ReferencePosterior
     name::String
 end
 
+Base.show(io::IO, r::ReferencePosterior) = print(io, "Reference posterior: ", name(r))
+
 """
     reference_posterior(db::PosteriorDatabase, name::String) -> ReferencePosterior
 
