@@ -17,6 +17,6 @@ function load_zipped_json(path)
 end
 
 function filenames_no_extension(path, ext; kwargs...)
-    filenames = filter!(endswith(ext), readdir(path; kwargs...))
-    return map(fn -> fn[begin:(end - length(ext))], filenames)
+    filenames = filter!(Base.Fix2(endswith, ext), readdir(path; kwargs...))
+    return map(fn -> fn[1:(end - length(ext))], filenames)
 end

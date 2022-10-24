@@ -10,8 +10,10 @@ module PosteriorDB
 using JSON3, ZipFile
 using Artifacts: @artifact_str
 
-const POSTERIOR_DB_ARTIFACT_PATH = only(readdir(artifact"posteriordb"; join=true))
-const POSTERIOR_DB_DEFAULT_PATH = joinpath(POSTERIOR_DB_ARTIFACT_PATH, "posterior_database")
+const POSTERIOR_DB_ARTIFACT_PATH = artifact"posteriordb"
+const POSTERIOR_DB_DEFAULT_PATH = joinpath(
+    POSTERIOR_DB_ARTIFACT_PATH, readdir(POSTERIOR_DB_ARTIFACT_PATH)[1], "posterior_database"
+)
 
 include("utils.jl")
 include("common.jl")
