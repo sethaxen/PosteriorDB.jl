@@ -38,10 +38,14 @@ Return the dataset entry of `posterior`.
 dataset(p::Posterior) = dataset(database(p), info(p).data_name)
 
 """
-    reference_posterior(posterior::Posterior) -> ReferencePosterior
+    reference_posterior(posterior::Posterior) -> Union{Nothing,ReferencePosterior}
 
 Return the reference posterior entry of `posterior`.
+
+If no reference posterior is available, `nothing` is returned.
 """
 function reference_posterior(p::Posterior)
-    return reference_posterior(database(p), info(p).reference_posterior_name)
+    ref_name = info(p).reference_posterior_name
+    ref_name === nothing && return nothing
+    return reference_posterior(database(p), ref_name)
 end
