@@ -3,7 +3,15 @@ uuid = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
 authors = ["Seth Axen <seth@sethaxen.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
+
 [compat]
+Artifacts = "1"
+JSON3 = "1"
+ZipFile = "0.10"
 julia = "1"
 
 [extras]
