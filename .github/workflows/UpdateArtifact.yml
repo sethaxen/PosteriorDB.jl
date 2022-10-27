@@ -28,7 +28,7 @@ jobs:
           add_artifact!(
             "Artifacts.toml",
             "${{ matrix.artifact_name }}",
-            "https://github.com/${{ matrix.github_repo }}/archive/refs/tags/${{ steps.latestrelease.outputs.release }}/${{ matrix.artifact_name }}.tar.gz",
+            "https://github.com/${{ matrix.github_repo }}/archive/refs/tags/${{ steps.latestrelease.outputs.release }}.tar.gz",
             force=true,
           )
         shell: julia --color=yes {0}
