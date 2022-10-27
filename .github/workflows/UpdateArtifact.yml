@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get latest posteriordb release
-        id: release_name
+        id: latestrelease
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: stan-dev/posteriordb
@@ -22,7 +22,7 @@ jobs:
           add_artifact!(
             "Artifacts.toml",
             "posteriordb",
-            "https://github.com/stan-dev/posteriordb/archive/refs/tags/${{ steps.keydb.outputs.release }}/posteriordb.tar.gz",
+            "https://github.com/stan-dev/posteriordb/archive/refs/tags/${{ steps.latestrelease.outputs.release }}/posteriordb.tar.gz",
             force=true,
           )
         shell: julia --color=yes {0}
@@ -30,5 +30,5 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           add-paths: ./Artifacts.toml
-          branch: updateartifact/${{ steps.keydb.outputs.release }}
-          title: 'Update posteriordb artifact to ${{ steps.keydb.outputs.release }}'
+          branch: updateartifact/${{ steps.latestrelease.outputs.release }}
+          title: 'Update posteriordb artifact to ${{ steps.latestrelease.outputs.release }}'
