@@ -1,0 +1,34 @@
+name: Update artifact
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  UpdateArtifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get latest posteriordb release
+        id: release_name
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: stan-dev/posteriordb
+          excludes: prerelease, draft
+      - name: add ArtifactUtils
+        run: julia -e 'using Pkg; Pkg.add("ArtifactUtils")'
+      - name: Update Artifacts.toml
+        run: |
+          using ArtifactUtils
+          add_artifact!(
+            "Artifacts.toml",
+            "posteriordb",
+            "https://github.com/stan-dev/posteriordb/archive/refs/tags/${{ steps.keydb.outputs.release }}/posteriordb.tar.gz",
+            force=true,
+          )
+        shell: julia --color=yes {0}
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          add-paths: ./Artifacts.toml
+          branch: updateartifact/${{ steps.keydb.outputs.release }}
+          title: 'Update posteriordb artifact to ${{ steps.keydb.outputs.release }}'
