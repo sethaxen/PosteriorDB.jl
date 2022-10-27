@@ -1,11 +1,17 @@
-name: Update artifact
+name: Update artifacts
 on:
   schedule:
     - cron:  '0 0 * * *'
   workflow_dispatch:
 jobs:
-  UpdateArtifact:
+  UpdateArtifacts:
     runs-on: ubuntu-latest
+    name: UpdateArtifacts - ${{ matrix.artifact_name }}
+    strategy:
+      matrix:
+        include:
+          - artifact_name: "posteriordb"
+            github_repo: "stan-dev/posteriordb"
     steps:
       - uses: actions/checkout@v3
       - name: Get latest posteriordb release
@@ -21,8 +27,8 @@ jobs:
           using ArtifactUtils
           add_artifact!(
             "Artifacts.toml",
-            "posteriordb",
-            "https://github.com/stan-dev/posteriordb/archive/refs/tags/${{ steps.latestrelease.outputs.release }}/posteriordb.tar.gz",
+            "${{ matrix.artifact_name }}",
+            "https://github.com/${{ matrix.github_repo }}/archive/refs/tags/${{ steps.latestrelease.outputs.release }}/${{ matrix.artifact_name }}.tar.gz",
             force=true,
           )
         shell: julia --color=yes {0}
@@ -30,5 +36,9 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           add-paths: ./Artifacts.toml
-          branch: updateartifact/${{ steps.latestrelease.outputs.release }}
-          title: 'Update posteriordb artifact to ${{ steps.latestrelease.outputs.release }}'
+          branch: updateartifacts/${{ matrix.artifact_name }}/${{ steps.latestrelease.outputs.release }}
+          title: 'Update ${{ matrix.artifact_name }} artifact to ${{ steps.latestrelease.outputs.release }}'
+          body: |
+            This PR updates the `Artifacts.toml` entry for `${{ matrix.artifact_name }}` to the release [`${{ steps.latestrelease.outputs.release }}`](https://github.com/${{ matrix.github_repo }}/releases/tag/${{ steps.latestrelease.outputs.release }}).
+
+            Before merging, you should check that the selected release is correct and that the tests pass.
