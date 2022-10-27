@@ -10,15 +10,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - artifact_name: "posteriordb"
-            github_repo: "stan-dev/posteriordb"
+          - artifact_name: posteriordb
+            github_repo: stan-dev/posteriordb
     steps:
       - uses: actions/checkout@v3
-      - name: Get latest posteriordb release
+      - name: Get latest artifact release
         id: latestrelease
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: stan-dev/posteriordb
+          repository: ${{ matrix.github_repo }}
           excludes: prerelease, draft
       - name: add ArtifactUtils
         run: julia -e 'using Pkg; Pkg.add("ArtifactUtils")'
