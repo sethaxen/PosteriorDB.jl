@@ -52,9 +52,6 @@ using Test
             @test ppls isa Vector{String}
             @test !isempty(ppls)
             @testset "$ppl" for ppl in ppls
-                # NOTE: eight_schools_centered for pymc3 missing from the latest release
-                # of posteriordb even though the info indicates it is present
-                n == "eight_schools_centered" && ppl == "pymc3" && continue
                 code = implementation(mod, ppl)
                 @test code isa String
             end
