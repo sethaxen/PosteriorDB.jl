@@ -1,6 +1,6 @@
 [posteriordb]
-git-tree-sha1 = "b371b840aa1e88d3f1df86d6195effa15b68b409"
+git-tree-sha1 = "95c3074bd791a2f28857088639b48ca1b786459a"
 
     [[posteriordb.download]]
-    sha256 = "cab3d155cda75a2b372a6f441a3c813b2b3eddafb61c0741e8159d7caa53ddbc"
-    url = "https://github.com/stan-dev/posteriordb/archive/refs/tags/py_v0.2.0.tar.gz"
+    sha256 = "aa19e259a3a47416f270df463cef85ff468d05fd6e10c0a71f89fa94a6b37612"
+    url = "https://github.com/stan-dev/posteriordb/archive/refs/tags/0.4.0.tar.gz"
