@@ -5,12 +5,16 @@ version = "0.2.0"
 
 [deps]
 Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
 JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
 Artifacts = "1"
+Compat = "4.3"
 JSON3 = "1"
+OrderedCollections = "1"
 ZipFile = "0.10"
 julia = "1.3"
 
