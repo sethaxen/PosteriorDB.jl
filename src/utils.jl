@@ -1,4 +1,4 @@
-load_json(path) = open(JSON3.read, path, "r")
+load_json(path) = format_json_data(open(JSON3.read, path, "r"))
 
 function load_zipped_json(path)
     reader = ZipFile.Reader(path)
@@ -13,7 +13,7 @@ function load_zipped_json(path)
     end
     contents = JSON3.read(first(files))
     close(reader)
-    return contents
+    return format_json_data(contents)
 end
 
 function filenames_no_extension(path, ext; kwargs...)

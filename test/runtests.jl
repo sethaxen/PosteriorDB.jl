@@ -68,7 +68,7 @@ using Test
             @test post isa Posterior
             @test name(post) == n
             @test database(post) == pdb
-            @test info(post) isa AbstractDict
+            @test info(post) isa OrderedDict{String}
             mod = model(post)
             @test mod isa Model
             @test database(mod) === pdb
@@ -82,7 +82,7 @@ using Test
             if ref !== nothing
                 @test name(ref) isa String
                 @test database(ref) === pdb
-                @test info(ref) isa AbstractDict
+                @test info(ref) isa OrderedDict{String}
                 load_values(ref)
             end
         end
@@ -97,7 +97,7 @@ using Test
             @test mod isa Model
             @test name(mod) == n
             @test database(mod) == pdb
-            @test info(mod) isa AbstractDict
+            @test info(mod) isa OrderedDict{String}
             ppls = implementation_names(mod)
             @test ppls isa Vector{String}
             @test !isempty(ppls)
@@ -117,8 +117,8 @@ using Test
             @test data isa Dataset
             @test name(data) == n
             @test database(data) == pdb
-            @test info(data) isa AbstractDict
-            @test load_values(data) isa AbstractDict
+            @test info(data) isa OrderedDict{String}
+            @test load_values(data) isa OrderedDict{String}
         end
     end
 end
