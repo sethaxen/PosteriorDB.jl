@@ -13,9 +13,9 @@ end
 function Base.show(io::IO, d::Dataset)
     print(io, "Dataset: ", name(d))
     i = info(d)
-    if haskey(i, :title)
+    if haskey(i, "title")
         println(io)
-        print(io, "Title: ", i.title)
+        print(io, "Title: ", i["title"])
     end
     return nothing
 end
@@ -37,6 +37,6 @@ info(d::Dataset) = load_json(data_info_path(database(d), name(d)))
 Load and return the data for `dataset`.
 """
 function load_values(d::Dataset)
-    path = joinpath(database(d).path, "$(info(d).data_file).zip")
+    path = joinpath(database(d).path, "$(info(d)["data_file"]).zip")
     return load_zipped_json(path)
 end
