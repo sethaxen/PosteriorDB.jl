@@ -1,6 +1,5 @@
 using PosteriorDB
 using JSON3
-using OrderedCollections
 using Test
 
 @testset "PosteriorDB.jl" begin
@@ -29,23 +28,23 @@ using Test
             sample_dict = merge(
                 sample_dict,
                 Dict(
-                    "OrderedDict{String,Any}" => sample_dict,
-                    "Vector{OrderedDict{String,Any}}" => [sample_dict],
+                    "Dict{String,Any}" => sample_dict,
+                    "Vector{Dict{String,Any}}" => [sample_dict],
                 ),
             )
             s = JSON3.write(sample_dict)
             d = JSON3.read(s)
             df = PosteriorDB.format_json_data(d)
-            @test df isa OrderedDict{String,Any}
+            @test df isa Dict{String,Any}
             for (k, v) in df
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
-            for (k, v) in df["OrderedDict{String,Any}"]
+            for (k, v) in df["Dict{String,Any}"]
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
-            for (k, v) in df["Vector{OrderedDict{String,Any}}"][1]
+            for (k, v) in df["Vector{Dict{String,Any}}"][1]
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
@@ -68,7 +67,7 @@ using Test
             @test post isa Posterior
             @test name(post) == n
             @test database(post) == pdb
-            @test info(post) isa OrderedDict{String}
+            @test info(post) isa Dict{String}
             mod = model(post)
             @test mod isa Model
             @test database(mod) === pdb
@@ -82,7 +81,7 @@ using Test
             if ref !== nothing
                 @test name(ref) isa String
                 @test database(ref) === pdb
-                @test info(ref) isa OrderedDict{String}
+                @test info(ref) isa Dict{String}
                 load_values(ref)
             end
         end
@@ -97,7 +96,7 @@ using Test
             @test mod isa Model
             @test name(mod) == n
             @test database(mod) == pdb
-            @test info(mod) isa OrderedDict{String}
+            @test info(mod) isa Dict{String}
             ppls = implementation_names(mod)
             @test ppls isa Vector{String}
             @test !isempty(ppls)
@@ -117,8 +116,8 @@ using Test
             @test data isa Dataset
             @test name(data) == n
             @test database(data) == pdb
-            @test info(data) isa OrderedDict{String}
-            @test load_values(data) isa OrderedDict{String}
+            @test info(data) isa Dict{String}
+            @test load_values(data) isa Dict{String}
         end
     end
 end

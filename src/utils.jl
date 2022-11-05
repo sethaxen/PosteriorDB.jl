@@ -23,7 +23,7 @@ end
 
 format_json_data(data) = data
 function format_json_data(data::AbstractDict)
-    return OrderedDict{String,Any}(string(k) => format_json_data(v) for (k, v) in data)
+    return Dict{String,Any}(string(k) => format_json_data(v) for (k, v) in data)
 end
 format_json_data(data::AbstractVector{<:AbstractDict}) = map(format_json_data, data)
 function format_json_data(data::AbstractVector)
