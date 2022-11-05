@@ -2,6 +2,17 @@ using PosteriorDB
 using Test
 
 @testset "PosteriorDB.jl" begin
+    @testset "utils" begin
+        @testset "recursive_stack" begin
+            @test PosteriorDB.recursive_stack(identity, [1, 2]) == [1, 2]
+            @test PosteriorDB.recursive_stack(identity, [[1, 2]]) == permutedims([1 2])
+            @test PosteriorDB.recursive_stack(identity, [[1, 2], [3, 4]]) ==
+                reshape(1:4, 2, 2)
+            @test PosteriorDB.recursive_stack(identity, 1) === 1
+            @test PosteriorDB.recursive_stack(identity, 1:5) == 1:5
+        end
+    end
+
     pdb = database()
 
     @testset "PosteriorDatabase" begin

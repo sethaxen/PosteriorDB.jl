@@ -20,3 +20,12 @@ function filenames_no_extension(path, ext; kwargs...)
     filenames = filter!(Base.Fix2(endswith, ext), readdir(path; kwargs...))
     return map(fn -> fn[1:(end - length(ext))], filenames)
 end
+
+"""
+    recursive_stack(x::AbstractArray)
+
+If `x` is an array of arrays, recursively stack into a single array whose dimensions are
+ordered with dimensions of the innermost container first and outermost last.
+"""
+recursive_stack(f, x) = x
+recursive_stack(f, x::AbstractArray{<:AbstractArray}) = recursive_stack(f, stack(f, x))
