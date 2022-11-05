@@ -1,4 +1,6 @@
 using PosteriorDB
+using JSON3
+using OrderedCollections
 using Test
 
 @testset "PosteriorDB.jl" begin
@@ -10,6 +12,43 @@ using Test
                 reshape(1:4, 2, 2)
             @test PosteriorDB.recursive_stack(identity, 1) === 1
             @test PosteriorDB.recursive_stack(identity, 1:5) == 1:5
+        end
+
+        @testset "format_json_data" begin
+            sz = (2, 3, 4)
+            sample_dict = Dict(
+                "Int" => 1,
+                "Float64" => 2.5,
+                "String" => "foo",
+                "Vector{Int}" => [1, 2],
+                "Vector{Float64}" => Union{Int,Float64}[1, 2.5],
+                "Matrix{Float64}" => [randn(3), randn(3)],
+                "Array{Float64,3}" =>
+                    [[randn(4), randn(4), randn(4)], [randn(4), randn(4), randn(4)]],
+            )
+            sample_dict = merge(
+                sample_dict,
+                Dict(
+                    "OrderedDict{String,Any}" => sample_dict,
+                    "Vector{OrderedDict{String,Any}}" => [sample_dict],
+                ),
+            )
+            s = JSON3.write(sample_dict)
+            d = JSON3.read(s)
+            df = PosteriorDB.format_json_data(d)
+            @test df isa OrderedDict{String,Any}
+            for (k, v) in df
+                @test v isa eval(Meta.parse(k))
+                v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
+            end
+            for (k, v) in df["OrderedDict{String,Any}"]
+                @test v isa eval(Meta.parse(k))
+                v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
+            end
+            for (k, v) in df["Vector{OrderedDict{String,Any}}"][1]
+                @test v isa eval(Meta.parse(k))
+                v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
+            end
         end
     end
 
