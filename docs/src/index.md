@@ -9,12 +9,10 @@ It includes convenience functions for accessing data, model code, and informatio
 
 ## Installation
 
-This package is not yet registered.
-For now, it can be installed directly from GitHub.
+PosteriorDB can be installed from the Julia general registry with
 
 ```julia
-using Pkg
-Pkg.add(url="https://github.com/sethaxen/PosteriorDB.jl")
+] add PosteriorDB
 ```
 
 ## Example usage
