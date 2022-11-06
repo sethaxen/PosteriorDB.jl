@@ -32,11 +32,8 @@ database(d::Dataset) = d.db
 info(d::Dataset) = load_json(data_info_path(database(d), name(d)))
 
 """
-    load_values(dataset::Dataset)
+    load(dataset::Dataset) -> Dict{String,Any}
 
 Load and return the data for `dataset`.
 """
-function load_values(d::Dataset)
-    path = joinpath(database(d).path, "$(info(d)["data_file"]).zip")
-    return load_zipped_json(path)
-end
+load(d::Dataset) = load_zipped_json(path(d))

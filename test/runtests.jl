@@ -82,7 +82,7 @@ using Test
                 @test name(ref) isa String
                 @test database(ref) === pdb
                 @test info(ref) isa Dict{String}
-                load_values(ref)
+                load(ref)
             end
         end
     end
@@ -117,7 +117,7 @@ using Test
             @test name(data) == n
             @test database(data) == pdb
             @test info(data) isa Dict{String}
-            @test load_values(data) isa Dict{String}
+            @test load(data) isa Dict{String}
         end
     end
 end
