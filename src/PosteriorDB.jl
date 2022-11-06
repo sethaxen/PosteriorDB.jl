@@ -30,7 +30,7 @@ export AbstractImplementation,
     Model,
     Posterior,
     PosteriorDatabase,
-    PyMC3ModelImplementation
+    PyMC3ModelImplementation,
     ReferencePosterior,
     StanModelImplementation
 export database,
