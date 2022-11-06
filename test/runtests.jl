@@ -55,7 +55,7 @@ using Test
 
     @testset "PosteriorDatabase" begin
         @test pdb isa PosteriorDatabase
-        @test isdir(pdb.path)
+        @test isdir(path(pdb))
     end
 
     @testset "posterior" begin
@@ -82,7 +82,8 @@ using Test
                 @test name(ref) isa String
                 @test database(ref) === pdb
                 @test info(ref) isa Dict{String}
-                load_values(ref)
+                @test isfile(path(ref))
+                load(ref)
             end
         end
     end
@@ -101,8 +102,10 @@ using Test
             @test ppls isa Vector{String}
             @test !isempty(ppls)
             @testset "$ppl" for ppl in ppls
-                code = implementation(mod, ppl)
-                @test code isa String
+                impl = implementation(mod, ppl)
+                @test impl isa PosteriorDB.AbstractImplementation
+                @test isfile(path(impl))
+                @test load(impl) isa String
             end
         end
     end
@@ -117,7 +120,8 @@ using Test
             @test name(data) == n
             @test database(data) == pdb
             @test info(data) isa Dict{String}
-            @test load_values(data) isa Dict{String}
+            @test isfile(path(data))
+            @test load(data) isa Dict{String}
         end
     end
 end

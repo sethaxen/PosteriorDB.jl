@@ -45,15 +45,3 @@ Return the names of frameworks with code for the `model`.
 function implementation_names(m::Model)
     return map(String, collect(keys(info(m)["model_implementations"])))
 end
-
-"""
-    implementation(model::Model, framework::String) -> String
-
-Return the code for the implementation of `model` in the `framework`.
-"""
-function implementation(m::Model, framework::String)
-    path = joinpath(
-        database(m).path, info(m)["model_implementations"][framework]["model_code"]
-    )
-    return read(path, String)
-end

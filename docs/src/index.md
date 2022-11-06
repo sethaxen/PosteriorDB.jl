@@ -25,7 +25,7 @@ When a database is created with [`database`](@ref), this is automatically used.
 ```@repl usage
 using PosteriorDB
 pdb = database()
-pdb.path
+path(pdb)
 ```
 
 For now, the database is read-only.
@@ -73,23 +73,27 @@ info(post)
 From the model we can access implementation code and model information.
 
 ```@repl usage
-mod_code = implementation(mod, "stan")
+impl = implementation(mod, "stan")
+path(impl)
+mod_code = load(impl)
 println(mod_code)
 info(mod)
 ```
 
-We can access information about the dataset and load it with [`load_values`](@ref).
+We can access information about the dataset and load it with [`load`](@ref).
 
 ```@repl usage
 info(data)
-load_values(data)
+path(data)
+load(data)
 ```
 
-Lastly, we can access gold standard posterior draws with [`reference_posterior`](@ref) and [`load_values`](@ref).
+Lastly, we can access gold standard posterior draws with [`reference_posterior`](@ref) and [`load`](@ref).
 
 ```@repl usage
 ref = reference_posterior(post)
 info(ref)
+path(ref)
 using DataFrames
-DataFrame(load_values(ref))
+DataFrame(load(ref))
 ```
