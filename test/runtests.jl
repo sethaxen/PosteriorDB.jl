@@ -117,6 +117,7 @@ using Test
             @test name(data) == n
             @test database(data) == pdb
             @test info(data) isa Dict{String}
+            @test isfile(path(data))
             @test load(data) isa Dict{String}
         end
     end

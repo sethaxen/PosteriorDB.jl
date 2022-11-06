@@ -35,6 +35,7 @@ export database,
     model,
     model_names,
     name,
+    path,
     posterior,
     posterior_names,
     reference_posterior
