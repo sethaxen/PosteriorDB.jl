@@ -31,6 +31,11 @@ name(d::Dataset) = d.name
 database(d::Dataset) = d.db
 info(d::Dataset) = load_json(data_info_path(database(d), name(d)))
 
+"""
+    path(dataset::Dataset) -> String
+
+Absolute path to the file containing the model `dataset`.
+"""
 path(d::Dataset) = joinpath(path(database(d)), "$(info(d)["data_file"]).zip")
 
 """

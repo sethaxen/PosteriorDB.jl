@@ -21,6 +21,11 @@ database(path::String=POSTERIOR_DB_DEFAULT_PATH) = PosteriorDatabase(path)
 
 Base.show(io::IO, ::PosteriorDatabase) = print(io, "PosteriorDatabase(...)")
 
+"""
+    path(db::PosteriorDatabase) -> String
+
+Absolute path to the database `db`.
+"""
 path(db::PosteriorDatabase) = db.path
 
 """
