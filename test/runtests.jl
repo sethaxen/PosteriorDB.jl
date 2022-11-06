@@ -5,12 +5,11 @@ using Test
 @testset "PosteriorDB.jl" begin
     @testset "utils" begin
         @testset "recursive_stack" begin
-            @test PosteriorDB.recursive_stack(identity, [1, 2]) == [1, 2]
-            @test PosteriorDB.recursive_stack(identity, [[1, 2]]) == permutedims([1 2])
-            @test PosteriorDB.recursive_stack(identity, [[1, 2], [3, 4]]) ==
-                reshape(1:4, 2, 2)
-            @test PosteriorDB.recursive_stack(identity, 1) === 1
-            @test PosteriorDB.recursive_stack(identity, 1:5) == 1:5
+            @test PosteriorDB.recursive_stack([1, 2]) == [1, 2]
+            @test PosteriorDB.recursive_stack([[1, 2]]) == permutedims([1 2])
+            @test PosteriorDB.recursive_stack([[1, 2], [3, 4]]) == reshape(1:4, 2, 2)
+            @test PosteriorDB.recursive_stack(1) === 1
+            @test PosteriorDB.recursive_stack(1:5) == 1:5
         end
 
         @testset "format_json_data" begin
@@ -33,7 +32,7 @@ using Test
                 ),
             )
             s = JSON3.write(sample_dict)
-            d = JSON3.read(s)
+            d = copy(JSON3.read(s))
             df = PosteriorDB.format_json_data(d)
             @test df isa Dict{String,Any}
             for (k, v) in df

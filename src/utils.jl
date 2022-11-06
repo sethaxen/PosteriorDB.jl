@@ -1,4 +1,4 @@
-load_json(path) = format_json_data(open(JSON3.read, path, "r"))
+load_json(path) = format_json_data(copy(open(JSON3.read, path, "r")))
 
 function load_zipped_json(path)
     reader = ZipFile.Reader(path)
@@ -11,7 +11,7 @@ function load_zipped_json(path)
             ),
         )
     end
-    contents = JSON3.read(first(files))
+    contents = copy(JSON3.read(first(files)))
     close(reader)
     return format_json_data(contents)
 end
@@ -27,15 +27,12 @@ function format_json_data(data::AbstractDict)
 end
 format_json_data(data::AbstractVector{<:AbstractDict}) = map(format_json_data, data)
 function format_json_data(data::AbstractVector)
-    arr = recursive_stack(_asarray, data)
+    arr = recursive_stack(data)
     dims = ntuple(identity, ndims(arr))
     arr_perm = permutedims(arr, reverse(dims))
     S = Base.promote_union(eltype(arr_perm))
     return convert(Array{S}, arr_perm)
 end
-
-_asarray(data::Array) = data
-_asarray(data::JSON3.Array) = copy(data)
 
 """
     recursive_stack(x::AbstractArray)
@@ -43,5 +40,5 @@ _asarray(data::JSON3.Array) = copy(data)
 If `x` is an array of arrays, recursively stack into a single array whose dimensions are
 ordered with dimensions of the innermost container first and outermost last.
 """
-recursive_stack(f, x) = x
-recursive_stack(f, x::AbstractArray{<:AbstractArray}) = recursive_stack(f, stack(f, x))
+recursive_stack(x) = x
+recursive_stack(x::AbstractArray{<:AbstractArray}) = recursive_stack(stack(x))
