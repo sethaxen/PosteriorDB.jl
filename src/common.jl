@@ -3,7 +3,8 @@
 
 Return the database containing `obj`.
 
-`obj` can be a `Posterior`, `Model`, `Dataset`, or `ReferencePosterior`.
+`obj` can be a `Posterior`, `Model`, `AbstractImplementation`, `Dataset`, or
+`ReferencePosterior`.
 """
 function database end
 

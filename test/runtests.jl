@@ -101,8 +101,10 @@ using Test
             @test ppls isa Vector{String}
             @test !isempty(ppls)
             @testset "$ppl" for ppl in ppls
-                code = implementation(mod, ppl)
-                @test code isa String
+                impl = implementation(mod, ppl)
+                @test impl isa PosteriorDB.AbstractImplementation
+                @test isfile(path(impl))
+                @test load(impl) isa String
             end
         end
     end
