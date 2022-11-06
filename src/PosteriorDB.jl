@@ -9,6 +9,7 @@ module PosteriorDB
 
 using JSON3, ZipFile
 using Artifacts: @artifact_str
+using Compat: stack
 
 const POSTERIOR_DB_ARTIFACT_PATH = artifact"posteriordb"
 const POSTERIOR_DB_DEFAULT_PATH = joinpath(

@@ -13,13 +13,15 @@ end
 function Base.show(io::IO, m::Model)
     print(io, "Model: ", name(m))
     i = info(m)
-    if haskey(i, :title)
+    if haskey(i, "title")
         println(io)
-        print(io, "Title: ", i.title)
+        print(io, "Title: ", i["title"])
     end
     if haskey(i, :model_implementations)
         println(io)
-        print(io, "Implementations: ", join(collect(keys(i.model_implementations)), ", "))
+        print(
+            io, "Implementations: ", join(collect(keys(i["model_implementations"])), ", ")
+        )
     end
     return nothing
 end
@@ -40,7 +42,9 @@ info(m::Model) = load_json(model_info_path(database(m), name(m)))
 
 Return the names of frameworks with code for the `model`.
 """
-implementation_names(m::Model) = map(String, collect(keys(info(m).model_implementations)))
+function implementation_names(m::Model)
+    return map(String, collect(keys(info(m)["model_implementations"])))
+end
 
 """
     implementation(model::Model, framework::String) -> String
@@ -48,6 +52,8 @@ implementation_names(m::Model) = map(String, collect(keys(info(m).model_implemen
 Return the code for the implementation of `model` in the `framework`.
 """
 function implementation(m::Model, framework::String)
-    path = joinpath(database(m).path, info(m).model_implementations[framework].model_code)
+    path = joinpath(
+        database(m).path, info(m)["model_implementations"][framework]["model_code"]
+    )
     return read(path, String)
 end

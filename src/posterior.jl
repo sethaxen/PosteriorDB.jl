@@ -28,14 +28,14 @@ info(p::Posterior) = load_json(posterior_info_path(database(p), name(p)))
 
 Return the model entry of `posterior`.
 """
-model(p::Posterior) = model(database(p), info(p).model_name)
+model(p::Posterior) = model(database(p), info(p)["model_name"])
 
 """
     dataset(posterior::Posterior) -> Dataset
 
 Return the dataset entry of `posterior`.
 """
-dataset(p::Posterior) = dataset(database(p), info(p).data_name)
+dataset(p::Posterior) = dataset(database(p), info(p)["data_name"])
 
 """
     reference_posterior(posterior::Posterior) -> Union{Nothing,ReferencePosterior}
@@ -45,7 +45,7 @@ Return the reference posterior entry of `posterior`.
 If no reference posterior is available, `nothing` is returned.
 """
 function reference_posterior(p::Posterior)
-    ref_name = info(p).reference_posterior_name
+    ref_name = info(p)["reference_posterior_name"]
     ref_name === nothing && return nothing
     return reference_posterior(database(p), ref_name)
 end
