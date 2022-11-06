@@ -55,7 +55,7 @@ using Test
 
     @testset "PosteriorDatabase" begin
         @test pdb isa PosteriorDatabase
-        @test isdir(pdb.path)
+        @test isdir(path(pdb))
     end
 
     @testset "posterior" begin
@@ -82,6 +82,7 @@ using Test
                 @test name(ref) isa String
                 @test database(ref) === pdb
                 @test info(ref) isa Dict{String}
+                @test isfile(path(ref))
                 load(ref)
             end
         end
