@@ -28,7 +28,7 @@ info(r::ReferencePosterior) = load_json(reference_posterior_info_path(database(r
 
 Return the path to the file storing the reference draws for the reference posterior `rp`.
 """
-path(r::ReferencePosterior) = reference_posterior_path(database(r), name(r))
+path(r::ReferencePosterior) = reference_posterior_draws_path(database(r), name(r))
 
 """
     load(rp::ReferencePosterior) -> Vector{Dict{String,Any}}
