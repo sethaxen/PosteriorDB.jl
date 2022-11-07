@@ -8,13 +8,8 @@ See https://github.com/stan-dev/posteriordb for more information.
 module PosteriorDB
 
 using JSON3, ZipFile
-using Artifacts: @artifact_str
 using Compat: stack
-
-const POSTERIOR_DB_ARTIFACT_PATH = artifact"posteriordb"
-const POSTERIOR_DB_DEFAULT_PATH = joinpath(
-    POSTERIOR_DB_ARTIFACT_PATH, readdir(POSTERIOR_DB_ARTIFACT_PATH)[1], "posterior_database"
-)
+VERSION ≥ v"1.3" && using Artifacts
 
 include("utils.jl")
 include("common.jl")
