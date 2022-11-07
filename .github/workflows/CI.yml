@@ -42,7 +42,7 @@ jobs:
         if: matrix.version == '1.0'
       - name: Set POSTERIOR_DB_PATH environmental variable
         run: |
-          echo "POSTERIOR_DB_PATH="$GITHUB_WORKSPACE/posteriordb/posterior_database" >> $GITHUB_ENV
+          echo "POSTERIOR_DB_PATH=$GITHUB_WORKSPACE/posteriordb/posterior_database" >> $GITHUB_ENV
         if: matrix.version == '1.0'
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
