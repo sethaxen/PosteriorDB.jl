@@ -16,8 +16,25 @@ Return a pointer to the [`PosteriorDatabase`](@ref) stored at `path`.
 
 If `path` is not given, the default posterior database downloaded from a GitHub release is
 used.
+
+!!! note
+    Julia 1.3 or greater is required to use the default posterior database with `database()`.
 """
-database(path::String=POSTERIOR_DB_DEFAULT_PATH) = PosteriorDatabase(path)
+database
+database(path::String) = PosteriorDatabase(path)
+
+@static if VERSION ≥ v"1.3"
+    function database()
+        artifact_path = artifact"posteriordb"
+        path = joinpath(artifact_path, readdir(artifact_path)[1], "posterior_database")
+        return database(path)
+    end
+else
+    function database()
+        @error "On Julia versions < 1.3, the path to the posterior database must be provided. A copy can be downloaded from https://github.com/stan-dev/posteriordb."
+        return throw(MethodError(database, ()))
+    end
+end
 
 Base.show(io::IO, ::PosteriorDatabase) = print(io, "PosteriorDatabase(...)")
 

@@ -18,7 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.3'
+          - '1.0'  # minimum supported version
+          - '1.3'  # minimum version with default database
           - '1'
           - 'nightly'
         os:
@@ -33,6 +34,16 @@ jobs:
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
       - uses: julia-actions/julia-buildpkg@v1
+      - name: Clone posteriordb
+        uses: actions/checkout@v2
+        with:
+          repository: stan-dev/posteriordb
+          path: 'posteriordb'
+        if: matrix.version == '1.0'
+      - name: Set POSTERIOR_DB_PATH environmental variable
+        run: |
+          echo "POSTERIOR_DB_PATH=$GITHUB_WORKSPACE/posteriordb/posterior_database" >> $GITHUB_ENV
+        if: matrix.version == '1.0'
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v2
