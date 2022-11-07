@@ -2,7 +2,7 @@ using PosteriorDB
 using JSON3
 using Test
 
-POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", nothing)
+POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
 
 @testset "PosteriorDB.jl" begin
     @testset "utils" begin
@@ -53,7 +53,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", nothing)
         end
     end
 
-    if POSTERIOR_DB_PATH === nothing
+    if isempty(POSTERIOR_DB_PATH)
         pdb = database()
     else
         pdb = database(POSTERIOR_DB_PATH)
