@@ -62,6 +62,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
     @testset "PosteriorDatabase" begin
         @test pdb isa PosteriorDatabase
         @test isdir(path(pdb))
+        VERSION < v"1.3" && @test_throws MethodError database()
     end
 
     @testset "posterior" begin
