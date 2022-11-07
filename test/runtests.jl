@@ -2,6 +2,8 @@ using PosteriorDB
 using JSON3
 using Test
 
+POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", nothing)
+
 @testset "PosteriorDB.jl" begin
     @testset "utils" begin
         @testset "recursive_stack" begin
@@ -51,7 +53,11 @@ using Test
         end
     end
 
-    pdb = database()
+    if POSTERIOR_DB_PATH === nothing
+        pdb = database()
+    else
+        pdb = database(POSTERIOR_DB_PATH)
+    end
 
     @testset "PosteriorDatabase" begin
         @test pdb isa PosteriorDatabase
