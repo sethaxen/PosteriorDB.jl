@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Home · PosteriorDB.jl</title><script data-outdated-warner src="assets/warner.js"></script><link rel="canonical" href="https://sethaxen.github.io/PosteriorDB.jl/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href>PosteriorDB.jl</a></span></div><form class="docs-search" action="search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Home</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#Example-usage"><span>Example usage</span></a></li></ul></li><li><a class="tocitem" href="api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Home</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Home</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/sethaxen/PosteriorDB.jl/blob/main/docs/src/index.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="PosteriorDB.jl"><a class="docs-heading-anchor" href="#PosteriorDB.jl">PosteriorDB.jl</a><a id="PosteriorDB.jl-1"></a><a class="docs-heading-anchor-permalink" href="#PosteriorDB.jl" title="Permalink"></a></h1><p>PosteriorDB.jl is a Julia package for easily working with a <a href="https://github.com/stan-dev/posteriordb">posteriordb</a> database. It includes convenience functions for accessing data, model code, and information for individual posteriors, models, data, and reference draws.</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><p>PosteriorDB can be installed from the Julia general registry with</p><pre><code class="language-julia hljs">] add PosteriorDB</code></pre><h2 id="Example-usage"><a class="docs-heading-anchor" href="#Example-usage">Example usage</a><a id="Example-usage-1"></a><a class="docs-heading-anchor-permalink" href="#Example-usage" title="Permalink"></a></h2><p>When PosteriorDB.jl is installed, a copy of posteriordb is downloaded. When a database is created with <a href="api/#PosteriorDB.database"><code>database</code></a>, this is automatically used.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PosteriorDB</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; pdb = database()</code><code class="nohighlight hljs ansi" style="display:block;">PosteriorDatabase(...)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; path(pdb)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;/home/runner/.julia/artifacts/95c3074bd791a2f28857088639b48ca1b786459a/posteriordb-0.4.0/posterior_database&quot;</code></pre><p>For now, the database is read-only. We can list the available posteriors with <a href="api/#PosteriorDB.posterior_names-Tuple{PosteriorDatabase}"><code>posterior_names</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; posterior_names(pdb)</code><code class="nohighlight hljs ansi" style="display:block;">147-element Vector{String}:
+ &quot;GLMM_Poisson_data-GLMM_Poisson_model&quot;
+ &quot;GLMM_data-GLMM1_model&quot;
+ &quot;GLM_Binomial_data-GLM_Binomial_model&quot;
+ &quot;GLM_Poisson_Data-GLM_Poisson_model&quot;
+ &quot;M0_data-M0_model&quot;
+ &quot;Mb_data-Mb_model&quot;
+ &quot;Mh_data-Mh_model&quot;
+ &quot;Mt_data-Mt_model&quot;
+ &quot;Mtbh_data-Mtbh_model&quot;
+ &quot;Mth_data-Mth_model&quot;
+ ⋮
+ &quot;wells_data-wells_daae_c_model&quot;
+ &quot;wells_data-wells_dae_c_model&quot;
+ &quot;wells_data-wells_dae_inter_model&quot;
+ &quot;wells_data-wells_dae_model&quot;
+ &quot;wells_data-wells_dist&quot;
+ &quot;wells_data-wells_dist100_model&quot;
+ &quot;wells_data-wells_dist100ars_model&quot;
+ &quot;wells_data-wells_interaction_c_model&quot;
+ &quot;wells_data-wells_interaction_model&quot;</code></pre><p>We can also list available models with <a href="api/#PosteriorDB.model_names-Tuple{PosteriorDatabase}"><code>model_names</code></a> and datasets with <a href="api/#PosteriorDB.dataset_names-Tuple{PosteriorDatabase}"><code>dataset_names</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; model_names(pdb)</code><code class="nohighlight hljs ansi" style="display:block;">120-element Vector{String}:
+ &quot;2pl_latent_reg_irt&quot;
+ &quot;GLMM1_model&quot;
+ &quot;GLMM_Poisson_model&quot;
+ &quot;GLM_Binomial_model&quot;
+ &quot;GLM_Poisson_model&quot;
+ &quot;M0_model&quot;
+ &quot;Mb_model&quot;
+ &quot;Mh_model&quot;
+ &quot;Mt_model&quot;
+ &quot;Mtbh_model&quot;
+ ⋮
+ &quot;wells_daae_c_model&quot;
+ &quot;wells_dae_c_model&quot;
+ &quot;wells_dae_inter_model&quot;
+ &quot;wells_dae_model&quot;
+ &quot;wells_dist&quot;
+ &quot;wells_dist100_model&quot;
+ &quot;wells_dist100ars_model&quot;
+ &quot;wells_interaction_c_model&quot;
+ &quot;wells_interaction_model&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dataset_names(pdb)</code><code class="nohighlight hljs ansi" style="display:block;">91-element Vector{String}:
+ &quot;GLMM_Poisson_data&quot;
+ &quot;GLMM_data&quot;
+ &quot;GLM_Binomial_data&quot;
+ &quot;GLM_Poisson_Data&quot;
+ &quot;M0_data&quot;
+ &quot;Mb_data&quot;
+ &quot;Mh_data&quot;
+ &quot;Mt_data&quot;
+ &quot;Mtbh_data&quot;
+ &quot;Mth_data&quot;
+ ⋮
+ &quot;synthetic_grid_RBF_kernels&quot;
+ &quot;three_docs1200&quot;
+ &quot;three_men1&quot;
+ &quot;three_men2&quot;
+ &quot;three_men3&quot;
+ &quot;timssAusTwn_irt&quot;
+ &quot;traffic_accident_nyc&quot;
+ &quot;uk_drivers&quot;
+ &quot;wells_data&quot;</code></pre><p>We can fetch a posterior using its name and <a href="api/#PosteriorDB.posterior-Tuple{PosteriorDatabase, String}"><code>posterior</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; post = posterior(pdb, &quot;eight_schools-eight_schools_centered&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Posterior: eight_schools-eight_schools_centered</code></pre><p>Each posterior has a corresponding model and dataset, which can be fetched with <a href="api/#PosteriorDB.model-Tuple{PosteriorDatabase, String}"><code>model</code></a> and <a href="api/#PosteriorDB.dataset-Tuple{PosteriorDatabase, String}"><code>dataset</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; mod = model(post)</code><code class="nohighlight hljs ansi" style="display:block;">Model: eight_schools_centered
+Title: A centered hiearchical model for 8 schools</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; data = dataset(post)</code><code class="nohighlight hljs ansi" style="display:block;">Dataset: eight_schools
+Title: The 8 schools dataset of Rubin (1981)</code></pre><p>The same model and dataset can be accessed directly from the database.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; model(pdb, &quot;eight_schools_centered&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Model: eight_schools_centered
+Title: A centered hiearchical model for 8 schools</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dataset(pdb, &quot;eight_schools&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Dataset: eight_schools
+Title: The 8 schools dataset of Rubin (1981)</code></pre><p>The functions <a href="api/#PosteriorDB.database"><code>database</code></a>, <a href="api/#PosteriorDB.name-Tuple{Any}"><code>name</code></a>, and <a href="api/#PosteriorDB.info-Tuple{Any}"><code>info</code></a> can be applied to any posterior, model, or dataset.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; database(post)</code><code class="nohighlight hljs ansi" style="display:block;">PosteriorDatabase(...)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; name(post)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;eight_schools-eight_schools_centered&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; info(post)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 8 entries:
+  &quot;added_date&quot;               =&gt; &quot;2019-08-12&quot;
+  &quot;name&quot;                     =&gt; &quot;eight_schools-eight_schools_centered&quot;
+  &quot;added_by&quot;                 =&gt; &quot;Mans Magnusson&quot;
+  &quot;dimensions&quot;               =&gt; Dict{String, Any}(&quot;theta&quot;=&gt;8, &quot;tau&quot;=&gt;1, &quot;mu&quot;=&gt;1)
+  &quot;keywords&quot;                 =&gt; [&quot;stan_benchmark&quot;]
+  &quot;model_name&quot;               =&gt; &quot;eight_schools_centered&quot;
+  &quot;data_name&quot;                =&gt; &quot;eight_schools&quot;
+  &quot;reference_posterior_name&quot; =&gt; &quot;eight_schools-eight_schools_noncentered&quot;</code></pre><p>From the model we can access implementation code and model information.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; impl = implementation(mod, &quot;stan&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">StanModelImplementation(...)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; path(impl)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;/home/runner/.julia/artifacts/95c3074bd791a2f28857088639b48ca1b786459a/posteriordb-0.4.0/posterior_database/models/stan/eight_schools_centered.stan&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; mod_code = load(impl)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;data {\n  int &lt;lower=0&gt; J; // number of schools\n  real y[J]; // estimated treatment\n  real&lt;lower=0&gt; sigma[J]; // std of estimated effect\n}\nparameters {\n  real theta[J]; // treatment effect in school j\n  real mu; // hyper-parameter of mean\n  real&lt;lower=0&gt; tau; // hyper-parameter of sdv\n}\nmodel {\n  tau ~ cauchy(0, 5); // a non-informative prior\n  theta ~ normal(mu, tau);\n  y ~ normal(theta, sigma);\n  mu ~ normal(0, 5);\n}\n&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(mod_code)</code><code class="nohighlight hljs ansi" style="display:block;">data {
+  int &lt;lower=0&gt; J; // number of schools
+  real y[J]; // estimated treatment
+  real&lt;lower=0&gt; sigma[J]; // std of estimated effect
+}
+parameters {
+  real theta[J]; // treatment effect in school j
+  real mu; // hyper-parameter of mean
+  real&lt;lower=0&gt; tau; // hyper-parameter of sdv
+}
+model {
+  tau ~ cauchy(0, 5); // a non-informative prior
+  theta ~ normal(mu, tau);
+  y ~ normal(theta, sigma);
+  mu ~ normal(0, 5);
+}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; info(mod)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 10 entries:
+  &quot;added_date&quot;            =&gt; &quot;2019-08-12&quot;
+  &quot;name&quot;                  =&gt; &quot;eight_schools_centered&quot;
+  &quot;added_by&quot;              =&gt; &quot;Mans Magnusson&quot;
+  &quot;references&quot;            =&gt; [&quot;rubin1981estimation&quot;, &quot;gelman2013bayesian&quot;]
+  &quot;keywords&quot;              =&gt; [&quot;bda3_example&quot;, &quot;hiearchical&quot;]
+  &quot;urls&quot;                  =&gt; [&quot;http://www.stat.columbia.edu/~gelman/arm/example…
+  &quot;title&quot;                 =&gt; &quot;A centered hiearchical model for 8 schools&quot;
+  &quot;prior&quot;                 =&gt; Dict{String, Any}(&quot;keywords&quot;=&gt;Any[])
+  &quot;description&quot;           =&gt; &quot;A centered hiearchical model for the 8 schools ex…
+  &quot;model_implementations&quot; =&gt; Dict{String, Any}(&quot;stan&quot;=&gt;Dict{String, Any}(&quot;model…</code></pre><p>We can access information about the dataset and load it with <a href="api/#PosteriorDB.load-Tuple{AbstractImplementation}"><code>load</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; info(data)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 9 entries:
+  &quot;added_date&quot;  =&gt; &quot;2019-08-12&quot;
+  &quot;name&quot;        =&gt; &quot;eight_schools&quot;
+  &quot;added_by&quot;    =&gt; &quot;Mans Magnusson&quot;
+  &quot;references&quot;  =&gt; [&quot;rubin1981estimation&quot;, &quot;gelman2013bayesian&quot;]
+  &quot;keywords&quot;    =&gt; [&quot;bda3_example&quot;]
+  &quot;urls&quot;        =&gt; [&quot;http://www.stat.columbia.edu/~gelman/arm/examples/schools&quot;]
+  &quot;title&quot;       =&gt; &quot;The 8 schools dataset of Rubin (1981)&quot;
+  &quot;data_file&quot;   =&gt; &quot;data/data/eight_schools.json&quot;
+  &quot;description&quot; =&gt; &quot;A study for the Educational Testing Service to analyze the …</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; path(data)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;/home/runner/.julia/artifacts/95c3074bd791a2f28857088639b48ca1b786459a/posteriordb-0.4.0/posterior_database/data/data/eight_schools.json.zip&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; load(data)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 3 entries:
+  &quot;sigma&quot; =&gt; [15, 10, 16, 11, 9, 11, 10, 18]
+  &quot;J&quot;     =&gt; 8
+  &quot;y&quot;     =&gt; [28, 8, -3, 7, -1, 1, 18, 12]</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; load(data, String)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;{\n  \&quot;J\&quot;: 8,\n  \&quot;y\&quot;: [28, 8, -3, 7, -1, 1, 18, 12],\n  \&quot;sigma\&quot;: [15, 10, 16, 11, 9, 11, 10, 18]\n}\n&quot;</code></pre><p>Lastly, we can access gold standard posterior draws with <a href="api/#PosteriorDB.reference_posterior-Tuple{PosteriorDatabase, String}"><code>reference_posterior</code></a> and <a href="api/#PosteriorDB.load-Tuple{AbstractImplementation}"><code>load</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; ref = reference_posterior(post)</code><code class="nohighlight hljs ansi" style="display:block;">Reference posterior: eight_schools-eight_schools_noncentered</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; info(ref)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 8 entries:
+  &quot;added_date&quot;  =&gt; &quot;2020-04-06&quot;
+  &quot;name&quot;        =&gt; &quot;eight_schools-eight_schools_noncentered&quot;
+  &quot;added_by&quot;    =&gt; &quot;Måns Magnusson&quot;
+  &quot;inference&quot;   =&gt; Dict{String, Any}(&quot;method&quot;=&gt;&quot;stan_sampling&quot;, &quot;method_argumen…
+  &quot;versions&quot;    =&gt; Dict{String, Any}(&quot;r_Makevars&quot;=&gt;&quot;# clang: start\nCFLAGS=-isy…
+  &quot;diagnostics&quot; =&gt; Dict{String, Any}(&quot;expected_fraction_of_missing_information&quot;…
+  &quot;comments&quot;    =&gt; nothing
+  &quot;checks_made&quot; =&gt; Dict{String, Any}(&quot;ndraws_is_10k&quot;=&gt;true, &quot;nchains_is_gte_4&quot;=…</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; path(ref)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;/home/runner/.julia/artifacts/95c3074bd791a2f28857088639b48ca1b786459a/posteriordb-0.4.0/posterior_database/reference_posteriors/draws/draws/eight_schools-eight_schools_noncentered.json.zip&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using DataFrames</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; DataFrame(load(ref))</code><code class="nohighlight hljs ansi" style="display:block;">10×10 DataFrame
+ Row │ tau                                theta[7]                           t ⋯
+     │ Array…                             Array…                             A ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ [1.79395, 2.15365, 2.29508, 1.70…  [9.67958, 1.86972, 1.03493, 5.84…  [ ⋯
+   2 │ [7.63743, 2.74969, 3.66891, 6.35…  [7.23184, 11.7473, -4.28891, 10.…  [
+   3 │ [0.632481, 6.08588, 1.89192, 8.0…  [8.08051, 0.891804, 10.0939, 5.0…  [
+   4 │ [4.57241, 4.43668, 4.3818, 3.206…  [4.8756, 6.48423, 10.983, 7.2118…  [
+   5 │ [4.44508, 0.471372, 6.4062, 1.73…  [9.76534, 2.87182, 3.58744, 11.7…  [ ⋯
+   6 │ [2.01252, 0.913913, 1.77058, 6.8…  [0.68835, 10.7017, 8.73127, 8.88…  [
+   7 │ [4.61368, 4.27341, 1.8199, 0.974…  [5.83087, 7.95277, 5.41783, 6.43…  [
+   8 │ [3.16983, 4.24302, 0.0641317, 0.…  [6.36665, 2.15872, 5.05777, 6.02…  [
+   9 │ [2.60459, 1.30387, 7.20344, 5.27…  [9.08279, 5.02503, 4.1844, 12.67…  [ ⋯
+  10 │ [8.39797, 0.786562, 5.41543, 4.8…  [13.4019, 9.46335, 1.79383, 2.50…  [
+                                                               8 columns omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; load(ref, String)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;[\n  {\n    \&quot;theta[1]\&quot;: [10.6802773011458, 6.45383910854259, -2.24162964640445, 2.46002311906488, 5.62488583140483, 7.50336783926614, 7.81599603245006, 5.01930011367663, 10.0453731387824, 5.18654343159969, 18.6991518451465, 8.87556423359689, 7.57183387302954, 5.831791526&quot; ⋯ 1813642 bytes ⋯ &quot;7942696, 6.05821941997084, 4.0325475521696, 0.915313753788002, 5.14859498223275, 1.62034403382475, 3.09807118666218, 5.04154487841247, 3.95785320605706, 1.89947657026868, 7.24701481671206, 2.00970915673199, 0.749392121060776, 0.579837182291891, 7.8650469735373]\n  }\n]\n&quot;</code></pre></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="api/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Tuesday 31 January 2023 21:31">Tuesday 31 January 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
