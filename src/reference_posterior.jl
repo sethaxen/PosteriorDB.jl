@@ -34,5 +34,10 @@ path(r::ReferencePosterior) = reference_posterior_draws_path(database(r), name(r
     load(rp::ReferencePosterior) -> Vector{Dict{String,Any}}
 
 Load and return the reference draws for the reference posterior `rp`.
+
+    load(rp::ReferencePosterior, String) -> String
+
+Return the reference draws as an unparsed JSON string.
 """
 load(r::ReferencePosterior) = load_zipped_json(path(r))
+load(r::ReferencePosterior, ::Type{String}) = load_zipped_string(path(r))

@@ -42,5 +42,10 @@ path(d::Dataset) = joinpath(path(database(d)), "$(info(d)["data_file"]).zip")
     load(dataset::Dataset) -> Dict{String,Any}
 
 Load and return the data for `dataset`.
+
+    load(dataset::Dataset, String) -> String
+
+Return the data for `dataset` as an unparsed JSON string.
 """
 load(d::Dataset) = load_zipped_json(path(d))
+load(d::Dataset, ::Type{String}) = load_zipped_string(path(d))
