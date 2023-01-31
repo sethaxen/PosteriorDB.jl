@@ -90,7 +90,8 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
                 @test database(ref) === pdb
                 @test info(ref) isa Dict{String}
                 @test isfile(path(ref))
-                load(ref)
+                @test load(ref) isa Vector{<:Dict{String}}
+                @test load(ref, String) isa String
             end
         end
     end
@@ -129,6 +130,8 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test info(data) isa Dict{String}
             @test isfile(path(data))
             @test load(data) isa Dict{String}
+            @test load(data, String) isa String
+            @test PosteriorDB.format_json_data(JSON3.read(load(data, String))) == load(data)
         end
     end
 end

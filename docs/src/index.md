@@ -84,6 +84,7 @@ We can access information about the dataset and load it with [`load`](@ref).
 info(data)
 path(data)
 load(data)
+load(data, String)
 ```
 
 Lastly, we can access gold standard posterior draws with [`reference_posterior`](@ref) and [`load`](@ref).
@@ -94,4 +95,5 @@ info(ref)
 path(ref)
 using DataFrames
 DataFrame(load(ref))
+load(ref, String)
 ```
