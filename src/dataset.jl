@@ -39,7 +39,7 @@ Absolute path to the file containing the model `dataset`.
 path(d::Dataset) = joinpath(path(database(d)), "$(info(d)["data_file"]).zip")
 
 """
-    load(dataset::Dataset) -> Dict{String,Any}
+    load(dataset::Dataset) -> OrderedDict{String,Any}
 
 Load and return the data for `dataset`.
 

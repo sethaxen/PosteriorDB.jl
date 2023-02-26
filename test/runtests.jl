@@ -1,5 +1,6 @@
 using PosteriorDB
 using JSON3
+using OrderedCollections: OrderedDict
 using Test
 
 POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
@@ -30,23 +31,23 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             sample_dict = merge(
                 sample_dict,
                 Dict(
-                    "Dict{String,Any}" => sample_dict,
-                    "Vector{Dict{String,Any}}" => [sample_dict],
+                    "OrderedDict{String,Any}" => sample_dict,
+                    "Vector{OrderedDict{String,Any}}" => [sample_dict],
                 ),
             )
             s = JSON3.write(sample_dict)
             d = JSON3.read(s)
             df = PosteriorDB.format_json_data(d)
-            @test df isa Dict{String,Any}
+            @test df isa OrderedDict{String,Any}
             for (k, v) in df
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
-            for (k, v) in df["Dict{String,Any}"]
+            for (k, v) in df["OrderedDict{String,Any}"]
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
-            for (k, v) in df["Vector{Dict{String,Any}}"][1]
+            for (k, v) in df["Vector{OrderedDict{String,Any}}"][1]
                 @test v isa eval(Meta.parse(k))
                 v isa AbstractArray{<:Real} && @test size(v) == sz[1:ndims(v)]
             end
@@ -74,7 +75,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test post isa PosteriorDB.Posterior
             @test PosteriorDB.name(post) == n
             @test PosteriorDB.database(post) == pdb
-            @test PosteriorDB.info(post) isa Dict{String}
+            @test PosteriorDB.info(post) isa OrderedDict{String}
             mod = PosteriorDB.model(post)
             @test mod isa PosteriorDB.Model
             @test PosteriorDB.database(mod) === pdb
@@ -83,15 +84,14 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test PosteriorDB.database(data) === pdb
             @test n == "$(PosteriorDB.name(data))-$(PosteriorDB.name(mod))" ||
                 (n == PosteriorDB.name(data) == PosteriorDB.name(mod))
-
             ref = PosteriorDB.reference_posterior(post)
             @test ref isa Union{PosteriorDB.ReferencePosterior,Nothing}
             if ref !== nothing
                 @test PosteriorDB.name(ref) isa String
                 @test PosteriorDB.database(ref) === pdb
-                @test PosteriorDB.info(ref) isa Dict{String}
+                @test PosteriorDB.info(ref) isa OrderedDict{String}
                 @test isfile(PosteriorDB.path(ref))
-                @test PosteriorDB.load(ref) isa Vector{<:Dict{String}}
+                @test PosteriorDB.load(ref) isa Vector{<:OrderedDict{String}}
                 @test PosteriorDB.load(ref, String) isa String
             end
         end
@@ -106,7 +106,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test mod isa PosteriorDB.Model
             @test PosteriorDB.name(mod) == n
             @test PosteriorDB.database(mod) == pdb
-            @test PosteriorDB.info(mod) isa Dict{String}
+            @test PosteriorDB.info(mod) isa OrderedDict{String}
             ppls = PosteriorDB.implementation_names(mod)
             @test ppls isa Vector{String}
             @test !isempty(ppls)
@@ -128,9 +128,9 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test data isa PosteriorDB.Dataset
             @test PosteriorDB.name(data) == n
             @test PosteriorDB.database(data) == pdb
-            @test PosteriorDB.info(data) isa Dict{String}
+            @test PosteriorDB.info(data) isa OrderedDict{String}
             @test isfile(PosteriorDB.path(data))
-            @test PosteriorDB.load(data) isa Dict{String}
+            @test PosteriorDB.load(data) isa OrderedDict{String}
             @test PosteriorDB.load(data, String) isa String
             @test PosteriorDB.format_json_data(
                 JSON3.read(PosteriorDB.load(data, String))
