@@ -21,27 +21,4 @@ include("dataset.jl")
 include("posterior.jl")
 include("reference_posterior.jl")
 
-export AbstractImplementation,
-    Dataset,
-    Model,
-    Posterior,
-    PosteriorDatabase,
-    PyMC3ModelImplementation,
-    ReferencePosterior,
-    StanModelImplementation
-export database,
-    dataset,
-    dataset_names,
-    implementation,
-    implementation_names,
-    info,
-    load,
-    model,
-    model_names,
-    name,
-    path,
-    posterior,
-    posterior_names,
-    reference_posterior
-
 end
