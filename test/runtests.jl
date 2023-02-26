@@ -54,84 +54,87 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
     end
 
     if isempty(POSTERIOR_DB_PATH)
-        pdb = database()
+        pdb = PosteriorDB.database()
     else
-        pdb = database(POSTERIOR_DB_PATH)
+        pdb = PosteriorDB.database(POSTERIOR_DB_PATH)
     end
 
     @testset "PosteriorDatabase" begin
-        @test pdb isa PosteriorDatabase
-        @test isdir(path(pdb))
-        VERSION < v"1.3" && @test_throws MethodError database()
+        @test pdb isa PosteriorDB.PosteriorDatabase
+        @test isdir(PosteriorDB.path(pdb))
+        VERSION < v"1.3" && @test_throws MethodError PosteriorDB.database()
     end
 
     @testset "posterior" begin
-        posteriors = posterior_names(pdb)
+        posteriors = PosteriorDB.posterior_names(pdb)
         @test posteriors isa Vector{String}
         @test !isempty(posteriors)
         @testset "$n" for n in posteriors
-            post = posterior(pdb, n)
-            @test post isa Posterior
-            @test name(post) == n
-            @test database(post) == pdb
-            @test info(post) isa Dict{String}
-            mod = model(post)
-            @test mod isa Model
-            @test database(mod) === pdb
-            data = dataset(post)
-            @test data isa Dataset
-            @test database(data) === pdb
-            @test n == "$(name(data))-$(name(mod))" || (n == name(data) == name(mod))
+            post = PosteriorDB.posterior(pdb, n)
+            @test post isa PosteriorDB.Posterior
+            @test PosteriorDB.name(post) == n
+            @test PosteriorDB.database(post) == pdb
+            @test PosteriorDB.info(post) isa Dict{String}
+            mod = PosteriorDB.model(post)
+            @test mod isa PosteriorDB.Model
+            @test PosteriorDB.database(mod) === pdb
+            data = PosteriorDB.dataset(post)
+            @test data isa PosteriorDB.Dataset
+            @test PosteriorDB.database(data) === pdb
+            @test n == "$(PosteriorDB.name(data))-$(PosteriorDB.name(mod))" ||
+                (n == PosteriorDB.name(data) == PosteriorDB.name(mod))
 
-            ref = reference_posterior(post)
-            @test ref isa Union{ReferencePosterior,Nothing}
+            ref = PosteriorDB.reference_posterior(post)
+            @test ref isa Union{PosteriorDB.ReferencePosterior,Nothing}
             if ref !== nothing
-                @test name(ref) isa String
-                @test database(ref) === pdb
-                @test info(ref) isa Dict{String}
-                @test isfile(path(ref))
-                @test load(ref) isa Vector{<:Dict{String}}
-                @test load(ref, String) isa String
+                @test PosteriorDB.name(ref) isa String
+                @test PosteriorDB.database(ref) === pdb
+                @test PosteriorDB.info(ref) isa Dict{String}
+                @test isfile(PosteriorDB.path(ref))
+                @test PosteriorDB.load(ref) isa Vector{<:Dict{String}}
+                @test PosteriorDB.load(ref, String) isa String
             end
         end
     end
 
     @testset "model" begin
-        models = model_names(pdb)
+        models = PosteriorDB.model_names(pdb)
         @test models isa Vector{String}
         @test !isempty(models)
         @testset "$n" for n in models
-            mod = model(pdb, n)
-            @test mod isa Model
-            @test name(mod) == n
-            @test database(mod) == pdb
-            @test info(mod) isa Dict{String}
-            ppls = implementation_names(mod)
+            mod = PosteriorDB.model(pdb, n)
+            @test mod isa PosteriorDB.Model
+            @test PosteriorDB.name(mod) == n
+            @test PosteriorDB.database(mod) == pdb
+            @test PosteriorDB.info(mod) isa Dict{String}
+            ppls = PosteriorDB.implementation_names(mod)
             @test ppls isa Vector{String}
             @test !isempty(ppls)
             @testset "$ppl" for ppl in ppls
-                impl = implementation(mod, ppl)
+                impl = PosteriorDB.implementation(mod, ppl)
                 @test impl isa PosteriorDB.AbstractImplementation
-                @test isfile(path(impl))
-                @test load(impl) isa String
+                @test isfile(PosteriorDB.path(impl))
+                @test PosteriorDB.load(impl) isa String
             end
         end
     end
 
     @testset "dataset" begin
-        datasets = dataset_names(pdb)
+        datasets = PosteriorDB.dataset_names(pdb)
         @test datasets isa Vector{String}
         @test !isempty(datasets)
         @testset "$n" for n in datasets
-            data = dataset(pdb, n)
-            @test data isa Dataset
-            @test name(data) == n
-            @test database(data) == pdb
-            @test info(data) isa Dict{String}
-            @test isfile(path(data))
-            @test load(data) isa Dict{String}
-            @test load(data, String) isa String
-            @test PosteriorDB.format_json_data(JSON3.read(load(data, String))) == load(data)
+            data = PosteriorDB.dataset(pdb, n)
+            @test data isa PosteriorDB.Dataset
+            @test PosteriorDB.name(data) == n
+            @test PosteriorDB.database(data) == pdb
+            @test PosteriorDB.info(data) isa Dict{String}
+            @test isfile(PosteriorDB.path(data))
+            @test PosteriorDB.load(data) isa Dict{String}
+            @test PosteriorDB.load(data, String) isa String
+            @test PosteriorDB.format_json_data(
+                JSON3.read(PosteriorDB.load(data, String))
+            ) == PosteriorDB.load(data)
         end
     end
 end
