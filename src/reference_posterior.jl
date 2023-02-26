@@ -31,7 +31,7 @@ Return the path to the file storing the reference draws for the reference poster
 path(r::ReferencePosterior) = reference_posterior_draws_path(database(r), name(r))
 
 """
-    load(rp::ReferencePosterior) -> Vector{Dict{String,Any}}
+    load(rp::ReferencePosterior) -> Vector{OrderedDict{String,Any}}
 
 Load and return the reference draws for the reference posterior `rp`.
 
