@@ -8,6 +8,7 @@ See https://github.com/stan-dev/posteriordb for more information.
 module PosteriorDB
 
 using JSON3, ZipFile
+using OrderedCollections: OrderedDict
 using Compat: stack
 VERSION ≥ v"1.3" && using Artifacts
 
