@@ -22,78 +22,78 @@ When a database is created with [`database`](@ref), this is automatically used.
 
 ```@repl usage
 using PosteriorDB
-pdb = database()
-path(pdb)
+pdb = PosteriorDB.database()
+PosteriorDB.path(pdb)
 ```
 
 For now, the database is read-only.
 We can list the available posteriors with [`posterior_names`](@ref).
 
 ```@repl usage
-posterior_names(pdb)
+PosteriorDB.posterior_names(pdb)
 ```
 
 We can also list available models with [`model_names`](@ref) and datasets with [`dataset_names`](@ref).
 
 ```@repl usage
-model_names(pdb)
-dataset_names(pdb)
+PosteriorDB.model_names(pdb)
+PosteriorDB.dataset_names(pdb)
 ```
 
 We can fetch a posterior using its name and [`posterior`](@ref).
 
 ```@repl usage
-post = posterior(pdb, "eight_schools-eight_schools_centered")
+post = PosteriorDB.posterior(pdb, "eight_schools-eight_schools_centered")
 ```
 
 Each posterior has a corresponding model and dataset, which can be fetched with [`model`](@ref) and [`dataset`](@ref).
 
 ```@repl usage
-mod = model(post)
-data = dataset(post)
+mod = PosteriorDB.model(post)
+data = PosteriorDB.dataset(post)
 ```
 
 The same model and dataset can be accessed directly from the database.
 
 ```@repl usage
-model(pdb, "eight_schools_centered")
-dataset(pdb, "eight_schools")
+PosteriorDB.model(pdb, "eight_schools_centered")
+PosteriorDB.dataset(pdb, "eight_schools")
 ```
 
 The functions [`database`](@ref), [`name`](@ref), and [`info`](@ref) can be applied to any posterior, model, or dataset.
 
 ```@repl usage
-database(post)
-name(post)
-info(post)
+PosteriorDB.database(post)
+PosteriorDB.name(post)
+PosteriorDB.info(post)
 ```
 
 From the model we can access implementation code and model information.
 
 ```@repl usage
-impl = implementation(mod, "stan")
-path(impl)
-mod_code = load(impl)
+impl = PosteriorDB.implementation(mod, "stan")
+PosteriorDB.path(impl)
+mod_code = PosteriorDB.load(impl)
 println(mod_code)
-info(mod)
+PosteriorDB.info(mod)
 ```
 
 We can access information about the dataset and load it with [`load`](@ref).
 
 ```@repl usage
-info(data)
-path(data)
-load(data)
-load(data, String)
+PosteriorDB.info(data)
+PosteriorDB.path(data)
+PosteriorDB.load(data)
+PosteriorDB.load(data, String)
 ```
 
 Lastly, we can access gold standard posterior draws with [`reference_posterior`](@ref) and [`load`](@ref).
 
 ```@repl usage
-ref = reference_posterior(post)
-info(ref)
-path(ref)
+ref = PosteriorDB.reference_posterior(post)
+PosteriorDB.info(ref)
+PosteriorDB.path(ref)
 using DataFrames
-DataFrame(load(ref))
-load(ref, String)
+DataFrame(PosteriorDB.load(ref))
+PosteriorDB.load(ref, String)
 ```

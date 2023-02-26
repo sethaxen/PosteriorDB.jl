@@ -1,7 +1,7 @@
 name = "PosteriorDB"
 uuid = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
 authors = ["Seth Axen <seth@sethaxen.com> and contributors"]
-version = "0.3.2"
+version = "0.4.0"
 
 [deps]
 Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
