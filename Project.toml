@@ -12,10 +12,11 @@ ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
 Aqua = "0.8"
-Artifacts = "1"
+Artifacts = "<0.0.1, 1"
 Compat = "3.12, 4"
 JSON3 = "1"
 OrderedCollections = "1"
+Test = "<0.0.1, 1"
 ZipFile = "0.8, 0.9, 0.10"
 julia = "1"
 
