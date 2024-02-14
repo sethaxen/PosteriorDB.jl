@@ -1,3 +1,4 @@
+using Aqua
 using PosteriorDB
 using JSON3
 using OrderedCollections: OrderedDict
@@ -6,6 +7,10 @@ using Test
 POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
 
 @testset "PosteriorDB.jl" begin
+    @testset "Aqua" begin
+        Aqua.test_all(PosteriorDB)
+    end
+
     @testset "utils" begin
         @testset "recursive_stack" begin
             @test PosteriorDB.recursive_stack(identity, [1, 2]) == [1, 2]
