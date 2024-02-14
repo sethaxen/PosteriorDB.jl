@@ -9,6 +9,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
 @testset "PosteriorDB.jl" begin
     @testset "Aqua" begin
         Aqua.test_all(PosteriorDB)
+        Aqua.test_ambiguities(PosteriorDB)
     end
 
     @testset "utils" begin
