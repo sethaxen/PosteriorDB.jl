@@ -1,7 +1,7 @@
 name = "PosteriorDB"
 uuid = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
 authors = ["Seth Axen <seth@sethaxen.com> and contributors"]
-version = "0.5.0"
+version = "0.5.1"
 
 [deps]
 Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -11,15 +11,18 @@ OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
-Artifacts = "1"
+Aqua = "0.4.11, 0.5, 0.6, 0.7, 0.8"
+Artifacts = "<0.0.1, 1"
 Compat = "3, 4"
 JSON3 = "1"
 OrderedCollections = "1"
+Test = "<0.0.1, 1"
 ZipFile = "0.8, 0.9, 0.10"
 julia = "1"
 
 [extras]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test"]
+test = ["Aqua", "Test"]
