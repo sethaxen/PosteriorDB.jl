@@ -23,17 +23,10 @@ used.
 database
 database(path::String) = PosteriorDatabase(path)
 
-@static if VERSION ≥ v"1.3"
-    function database()
-        artifact_path = artifact"posteriordb"
-        path = joinpath(artifact_path, readdir(artifact_path)[1], "posterior_database")
-        return database(path)
-    end
-else
-    function database()
-        @error "On Julia versions < 1.3, the path to the posterior database must be provided. A copy can be downloaded from https://github.com/stan-dev/posteriordb."
-        return throw(MethodError(database, ()))
-    end
+function database()
+    artifact_path = artifact"posteriordb"
+    path = joinpath(artifact_path, readdir(artifact_path)[1], "posterior_database")
+    return database(path)
 end
 
 Base.show(io::IO, ::PosteriorDatabase) = print(io, "PosteriorDatabase(...)")

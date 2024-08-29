@@ -10,7 +10,7 @@ module PosteriorDB
 using JSON3, ZipFile
 using OrderedCollections: OrderedDict
 using Compat: stack
-VERSION ≥ v"1.3" && using Artifacts
+using Artifacts
 
 include("utils.jl")
 include("common.jl")
