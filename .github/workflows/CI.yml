@@ -20,7 +20,7 @@ jobs:
           - '1.0'  # minimum supported version
           - '1.3'  # minimum version with default database
           - '1'
-          - 'nightly'
+          - 'pre'
         os:
           - ubuntu-latest
         arch:
