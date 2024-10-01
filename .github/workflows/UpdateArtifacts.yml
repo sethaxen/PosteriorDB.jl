@@ -33,7 +33,7 @@ jobs:
           )
         shell: julia --color=yes {0}
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           add-paths: ./Artifacts.toml
           branch: updateartifacts/${{ matrix.artifact_name }}/${{ steps.latestrelease.outputs.release }}
