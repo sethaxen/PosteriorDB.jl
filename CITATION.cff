@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use PosteriorDB.jl, please cite it as below."
+authors:
+  - family-names: Axen
+    given-names: "Seth D."
+title: "PosteriorDB.jl: A Julia package to work with posteriordb"
+type: software
+url: https://github.com/sethaxen/PosteriorDB.jl
+doi: 10.5281/zenodo.16420622
+references:
+  - authors:
+      - family-names: Magnusson
+        given-names: Måns
+      - family-names: Bürkner
+        given-names: Paul
+      - family-names: Vehtari
+        given-names: Aki
+    title: "posteriordb: a set of posteriors for Bayesian inference and probabilistic programming"
+    type: software
+    version: 1.0
+    date-released: 2025-04-28
+  - authors:
+      - family-names: Magnusson
+        given-names: Måns
+      - family-names: Torgander
+        given-names: Jakob
+      - family-names: Bürkner
+        given-names: Paul-Christian
+      - family-names: Zhang
+        given-names: Lu
+      - family-names: Carpenter
+        given-names: Bob
+      - family-names: Vehtari
+        given-names: Aki
+    title: "posteriordb: Testing, Benchmarking and Developing Bayesian Inference Algorithms"
+    collection-type: proceedings
+    collection-title: "Proceedings of The 28th International Conference on Artificial Intelligence and Statistics"
+    type: article
+    volume: 258
+    year: 2025
+    month: 5
+    publisher:
+      name: "PMLR"
+    start: 1198
+    end: 1206
+    url: "https://proceedings.mlr.press/v258/magnusson25a.html"
