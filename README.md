@@ -11,3 +11,15 @@
 
 PosteriorDB.jl is a Julia package for easily working with a [`posteriordb`](https://github.com/stan-dev/posteriordb) database.
 It includes convenience functions for accessing data, model code, and information for individual posteriors, models, data, and reference draws.
+
+## Installation
+
+PosteriorDB can be installed from the Julia general registry with
+
+```julia
+] add PosteriorDB
+```
+
+## Usage
+
+See the [documentation](https://sethaxen.github.io/PosteriorDB.jl).
