@@ -1,11 +1,12 @@
 cff-version: 1.2.0
-message: "If you use PosteriorDB.jl, please cite it as below."
+message: "If you use PosteriorDB.jl, please cite it using the metadata from this file."
 authors:
   - family-names: Axen
     given-names: "Seth D."
 title: "PosteriorDB.jl: A Julia package to work with posteriordb"
 type: software
-url: https://github.com/sethaxen/PosteriorDB.jl
+license: MIT
+repository-code: https://github.com/sethaxen/PosteriorDB.jl
 doi: 10.5281/zenodo.16420622
 references:
   - authors:
