@@ -97,3 +97,9 @@ using DataFrames
 DataFrame(PosteriorDB.load(ref))
 PosteriorDB.load(ref, String)
 ```
+
+## Citing PosteriorDB.jl
+
+If you use PosteriorDB.jl, please cite it using the metadata in the [CITATION.cff](https://github.com/sethaxen/PosteriorDB.jl/blob/main/CITATION.cff) file.
+Please also consider citing the [`posteriordb`](https://github.com/stan-dev/posteriordb) software and [paper](https://proceedings.mlr.press/v258/magnusson25a.html) whose metadata are also included.
+To generate a citation file in an arbitrary format, click "Cite this repository" on the right on the repo [homepage](https://github.com/sethaxen/PosteriorDB.jl).
