@@ -7,6 +7,7 @@
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 [![Code Style: Blue](https://img.shields.io/badge/code%20style-blue-4495d1.svg)](https://github.com/invenia/BlueStyle)
 [![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
+[![DOI](https://zenodo.org/badge/556828352.svg)](https://doi.org/10.5281/zenodo.16420622)
 
 PosteriorDB.jl is a Julia package for easily working with a [`posteriordb`](https://github.com/stan-dev/posteriordb) database.
 It includes convenience functions for accessing data, model code, and information for individual posteriors, models, data, and reference draws.
