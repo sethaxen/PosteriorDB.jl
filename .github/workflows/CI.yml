@@ -33,7 +33,7 @@ jobs:
             arch: x64
             downgrade: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
@@ -46,7 +46,7 @@ jobs:
         name: Downgrade dependencies to oldest supported versions
       - uses: julia-actions/julia-buildpkg@v1
       - name: Clone posteriordb
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: stan-dev/posteriordb
           path: 'posteriordb'
@@ -66,7 +66,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1'
