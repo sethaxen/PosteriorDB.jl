@@ -13,7 +13,7 @@ jobs:
           - artifact_name: posteriordb
             github_repo: stan-dev/posteriordb
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Get latest artifact release
         id: latestrelease
         uses: pozetroninc/github-action-get-latest-release@master
