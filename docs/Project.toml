@@ -5,5 +5,5 @@ PosteriorDB = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
 
 [compat]
 DataFrames = "1"
-Documenter = "1.17.0"
+Documenter = "1"
 PosteriorDB = "0.6.0"
