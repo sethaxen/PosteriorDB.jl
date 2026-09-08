@@ -2,12 +2,13 @@ load_json(path) = format_json_data(open(JSON3.read, path, "r"))
 
 function load_zipped_file(f, path)
     reader = ZipFile.Reader(path)
-    files = reader.files
+    filename = splitext(basename(path))[1]
+    files = filter(file -> file.name == filename, reader.files)
     nfiles = length(files)
-    if nfiles > 1
+    if nfiles != 1
         throw(
             ArgumentError(
-                "Expected a zip archive containing a single file. Path $path contains $nfiles files",
+                "Expected zip archive $path to contain exactly one file named $filename. Found $nfiles",
             ),
         )
     end
