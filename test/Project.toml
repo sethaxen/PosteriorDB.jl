@@ -1,0 +1,16 @@
+[deps]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+PosteriorDB = "1c4bc282-d2f5-44f9-b6d1-8c4424a23ad4"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[sources]
+PosteriorDB = {path = ".."}
+
+[compat]
+Aqua = "0.8.14"
+JSON3 = "1"
+OrderedCollections = "1, 2"
+PosteriorDB = "0.6.2"
+Test = "<0.0.1, 1"
