@@ -37,7 +37,7 @@ See also: [`implementation`](@ref), [`load`](@ref)
 """
 StanModelImplementation
 
-for framework in ("Stan", "PyMC3")
+for framework in ("Stan", "PyMC3", "PyMC")
     framework_lc = lowercase(framework)
     type_name = Symbol(framework*"ModelImplementation")
     @eval begin
