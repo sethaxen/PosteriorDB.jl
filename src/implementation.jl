@@ -46,7 +46,7 @@ for framework in ("Stan", "PyMC3", "PyMC")
             path_rel::String
         end
 
-        Base.show(io::IO, ::$type_name) = print(io, "$type_name(...)")
+        Base.show(io::IO, ::$type_name) = print(io, $type_name, "(...)")
 
         function implementation(m::Model, ::Val{Symbol($framework_lc)})
             path_rel = info(m)["model_implementations"][$framework_lc]["model_code"]
