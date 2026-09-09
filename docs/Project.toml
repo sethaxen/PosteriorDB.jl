@@ -9,4 +9,4 @@ PosteriorDB = {path = ".."}
 [compat]
 DataFrames = "1"
 Documenter = "1"
-PosteriorDB = "0.6.0"
+PosteriorDB = "0.7"
