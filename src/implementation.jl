@@ -35,29 +35,26 @@ Implementation of a model using Stan.
 
 See also: [`implementation`](@ref), [`load`](@ref)
 """
-struct StanModelImplementation <: AbstractImplementation
-    db::PosteriorDatabase
-    path_rel::String
+StanModelImplementation
+
+for framework in ("Stan", "PyMC3", "PyMC")
+    framework_lc = lowercase(framework)
+    type_name = Symbol(framework*"ModelImplementation")
+    @eval begin
+        struct $type_name <: AbstractImplementation
+            db::PosteriorDatabase
+            path_rel::String
+        end
+
+        Base.show(io::IO, ::$type_name) = print(io, $type_name, "(...)")
+
+        function implementation(m::Model, ::Val{Symbol($framework_lc)})
+            path_rel = info(m)["model_implementations"][$framework_lc]["model_code"]
+            return $type_name(database(m), path_rel)
+        end
+
+        database(impl::$type_name) = impl.db
+        path(impl::$type_name) = joinpath(path(database(impl)), impl.path_rel)
+        load(impl::$type_name) = read(path(impl), String)
+    end
 end
-
-struct PyMC3ModelImplementation <: AbstractImplementation
-    db::PosteriorDatabase
-    path_rel::String
-end
-
-const StringModelImplementation = Union{StanModelImplementation,PyMC3ModelImplementation}
-
-Base.show(io::IO, i::T) where {T<:StringModelImplementation} = print(io, "$T(...)")
-
-function implementation(m::Model, ::Val{:stan})
-    path_rel = info(m)["model_implementations"]["stan"]["model_code"]
-    return StanModelImplementation(database(m), path_rel)
-end
-function implementation(m::Model, ::Val{:pymc3})
-    path_rel = info(m)["model_implementations"]["pymc3"]["model_code"]
-    return PyMC3ModelImplementation(database(m), path_rel)
-end
-
-database(impl::StringModelImplementation) = impl.db
-path(impl::StringModelImplementation) = joinpath(path(database(impl)), impl.path_rel)
-load(impl::StringModelImplementation) = read(path(impl), String)
