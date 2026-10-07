@@ -9,7 +9,6 @@ module PosteriorDB
 
 using JSON3, ZipFile
 using OrderedCollections: OrderedDict
-using Compat: stack
 using Artifacts
 
 include("utils.jl")
