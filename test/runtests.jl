@@ -1,6 +1,6 @@
 using Aqua
 using PosteriorDB
-using JSON3
+using JSON
 using OrderedCollections: OrderedDict
 using Test
 
@@ -41,8 +41,8 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
                     "Vector{OrderedDict{String,Any}}" => [sample_dict],
                 ),
             )
-            s = JSON3.write(sample_dict)
-            d = JSON3.read(s)
+            s = JSON.json(sample_dict)
+            d = JSON.parse(s)
             df = PosteriorDB.format_json_data(d)
             @test df isa OrderedDict{String,Any}
             for (k, v) in df
@@ -138,7 +138,7 @@ POSTERIOR_DB_PATH = get(ENV, "POSTERIOR_DB_PATH", "")
             @test PosteriorDB.load(data) isa OrderedDict{String}
             @test PosteriorDB.load(data, String) isa String
             @test PosteriorDB.format_json_data(
-                JSON3.read(PosteriorDB.load(data, String))
+                JSON.parse(PosteriorDB.load(data, String))
             ) == PosteriorDB.load(data)
         end
     end
