@@ -1,4 +1,4 @@
-load_json(path) = format_json_data(open(JSON.parse, path, "r"))
+load_json(path) = format_json_data(JSON.parsefile(path))
 
 function load_zipped_file(f, path)
     reader = ZipFile.Reader(path)
