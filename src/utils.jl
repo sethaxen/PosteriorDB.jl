@@ -1,4 +1,4 @@
-load_json(path) = format_json_data(open(JSON3.read, path, "r"))
+load_json(path) = format_json_data(JSON.parsefile(path))
 
 function load_zipped_file(f, path)
     reader = ZipFile.Reader(path)
@@ -17,7 +17,7 @@ function load_zipped_file(f, path)
     return result
 end
 
-load_zipped_json(path) = load_zipped_file(format_json_data ∘ JSON3.read, path)
+load_zipped_json(path) = load_zipped_file(format_json_data ∘ JSON.parse, path)
 
 load_zipped_string(path) = load_zipped_file(Base.Fix2(read, String), path)
 
@@ -28,7 +28,7 @@ end
 
 format_json_data(data) = data
 function format_json_data(data::AbstractDict)
-    return OrderedDict{String,Any}(string(k) => format_json_data(v) for (k, v) in data)
+    return OrderedDict{String,Any}(k => format_json_data(v) for (k, v) in data)
 end
 format_json_data(data::AbstractVector{<:AbstractDict}) = map(format_json_data, data)
 function format_json_data(data::AbstractVector)
@@ -38,9 +38,21 @@ function format_json_data(data::AbstractVector)
     S = Base.promote_union(eltype(arr_perm))
     return convert(Array{S}, arr_perm)
 end
+function format_json_data(data::Vector{Any})
+    isempty(data) && return data
+    T = mapreduce(typeof, (S, T) -> Union{S,T}, data)
+    T === Any && return data
+    return format_json_data(convert(Vector{T}, data))
+end
 
 _asarray(data::Array) = data
-_asarray(data::JSON3.Array) = copy(data)
+function _asarray(data::Vector{Any})
+    i = findfirst(!isnothing, data)
+    if i !== nothing && data[i] isa Float64
+        data = map(x -> x isa Int64 ? Float64(x) : x, data)
+    end
+    return map(identity, data)
+end
 
 """
     recursive_stack(x::AbstractArray)
